@@ -40,9 +40,9 @@ sudo tee "$CONF_FILE" > /dev/null <<EOF
     "clksrc": 0,
     "antenna_gain": 0,
     "full_duplex": false,
-    "fine_timestamp": {
-      "enable": true,
-      "mode": "all_sf"
+        "fine_timestamp": {
+        "enable": true,
+        "mode": "all_sf"
     },
     "radio_0": {
       "enable": true,
@@ -58,7 +58,89 @@ sudo tee "$CONF_FILE" > /dev/null <<EOF
       },
       "tx_enable": true,
       "tx_freq_min": 863000000,
-      "tx_freq_max": 870000000
+      "tx_freq_max": 870000000,
+      "tx_gain_lut": [
+        {
+          "rf_power": 12,
+          "pa_gain": 0,
+          "pwr_idx": 15
+        },
+        {
+          "rf_power": 13,
+          "pa_gain": 0,
+          "pwr_idx": 16
+        },
+        {
+          "rf_power": 14,
+          "pa_gain": 0,
+          "pwr_idx": 17
+        },
+        {
+          "rf_power": 15,
+          "pa_gain": 0,
+          "pwr_idx": 19
+        },
+        {
+          "rf_power": 16,
+          "pa_gain": 0,
+          "pwr_idx": 20
+        },
+        {
+          "rf_power": 17,
+          "pa_gain": 0,
+          "pwr_idx": 22
+        },
+        {
+          "rf_power": 18,
+          "pa_gain": 1,
+          "pwr_idx": 1
+        },
+        {
+          "rf_power": 19,
+          "pa_gain": 1,
+          "pwr_idx": 2
+        },
+        {
+          "rf_power": 20,
+          "pa_gain": 1,
+          "pwr_idx": 3
+        },
+        {
+          "rf_power": 21,
+          "pa_gain": 1,
+          "pwr_idx": 4
+        },
+        {
+          "rf_power": 22,
+          "pa_gain": 1,
+          "pwr_idx": 5
+        },
+        {
+          "rf_power": 23,
+          "pa_gain": 1,
+          "pwr_idx": 6
+        },
+        {
+          "rf_power": 24,
+          "pa_gain": 1,
+          "pwr_idx": 7
+        },
+        {
+          "rf_power": 25,
+          "pa_gain": 1,
+          "pwr_idx": 9
+        },
+        {
+          "rf_power": 26,
+          "pa_gain": 1,
+          "pwr_idx": 11
+        },
+        {
+          "rf_power": 27,
+          "pa_gain": 1,
+          "pwr_idx": 14
+        }
+      ]
     },
     "radio_1": {
       "enable": true,
@@ -74,15 +156,58 @@ sudo tee "$CONF_FILE" > /dev/null <<EOF
       },
       "tx_enable": false
     },
-    "chan_multiSF_0": { "enable": true, "radio": 0, "if": -400000 },
-    "chan_multiSF_1": { "enable": true, "radio": 0, "if": -200000 },
-    "chan_multiSF_2": { "enable": true, "radio": 0, "if": 0 },
-    "chan_multiSF_3": { "enable": true, "radio": 0, "if": 200000 },
-    "chan_multiSF_4": { "enable": true, "radio": 0, "if": 400000 },
-    "chan_multiSF_5": { "enable": true, "radio": 1, "if": -100000 },
-    "chan_multiSF_6": { "enable": true, "radio": 1, "if": 100000 },
-    "chan_multiSF_7": { "enable": false, "radio": 0, "if": 400000 },
-
+    "chan_multiSF_All": {
+      "spreading_factor_enable": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "chan_multiSF_0": {
+      "enable": true,
+      "radio": 0,
+      "if": -400000
+    },
+    "chan_multiSF_1": {
+      "enable": true,
+      "radio": 0,
+      "if": -200000
+    },
+    "chan_multiSF_2": {
+      "enable": true,
+      "radio": 0,
+      "if": 0
+    },
+    "chan_multiSF_3": {
+      "enable": true,
+      "radio": 0,
+      "if": 200000
+    },
+    "chan_multiSF_4": {
+      "enable": true,
+      "radio": 0,
+      "if": 400000
+    },
+    "chan_multiSF_5": {
+      "enable": true,
+      "radio": 1,
+      "if": -100000
+    },
+    "chan_multiSF_6": {
+      "enable": true,
+      "radio": 1,
+      "if": 100000
+    },
+    "chan_multiSF_7": {
+      "enable": false,
+      "radio": 0,
+      "if": 400000
+    },
     "chan_Lora_std": {
       "enable": false,
       "radio": 1,
@@ -102,12 +227,11 @@ sudo tee "$CONF_FILE" > /dev/null <<EOF
       "datarate": 50000
     }
   },
-
   "gateway_conf": {
     "gateway_ID": "$GATEWAY_ID",
-    "server_address": "176.53.161.15",
-    "serv_port_up": 8001,
-    "serv_port_down": 8001,
+    "server_address": "10.10.1.65",
+    "serv_port_up": 1700,
+    "serv_port_down": 1700,
     "keepalive_interval": 10,
     "autoquit_threshold": 10,
     "stat_interval": 30,
@@ -116,12 +240,22 @@ sudo tee "$CONF_FILE" > /dev/null <<EOF
     "forward_crc_error": false,
     "forward_crc_disabled": false,
     "gps_tty_path": "/dev/ttymxc2",
-    "gps_active_script": "echo default-on > /sys/class/leds/led-gps/trigger",
-    "gps_passive_script": "echo heartbeat > /sys/class/leds/led-gps/trigger",
+    "gps_active_script":"echo default-on >/sys/class/leds/led-gps/trigger",
+    "gps_passive_script":"echo heartbeat >/sys/class/leds/led-gps/trigger",
     "ref_latitude": 0,
     "ref_longitude": 0,
     "ref_altitude": 0,
     "fake_gps": false
+  },
+  "debug_conf": {
+    "ref_payload": [
+      {
+        "id": "0xCAFE1234"
+      },
+      {
+        "id": "0xCAFE2345"
+      }
+    ]
   }
 }
 EOF
