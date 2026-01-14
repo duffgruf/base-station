@@ -229,9 +229,9 @@ sudo tee "$CONF_FILE" > /dev/null <<EOF
   },
   "gateway_conf": {
     "gateway_ID": "$GATEWAY_ID",
-    "server_address": "10.10.1.65",
-    "serv_port_up": 1700,
-    "serv_port_down": 1700,
+    "server_address": "176.53.161.15",
+    "serv_port_up": 8001,
+    "serv_port_down": 8001,
     "keepalive_interval": 10,
     "autoquit_threshold": 10,
     "stat_interval": 30,
