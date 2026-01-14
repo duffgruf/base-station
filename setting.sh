@@ -13,7 +13,7 @@ fi
 # Генерация gateway_ID
 # 16 символов: A-Z0-9
 # ===============================
-GATEWAY_ID=$(tr -dc 'A-Z0-9' </dev/urandom | head -c 16)
+GATEWAY_ID=$(hexdump -n 8 -e '8/1 "%02X"' /dev/urandom)
 
 echo "Сгенерирован gateway_ID: $GATEWAY_ID"
 
